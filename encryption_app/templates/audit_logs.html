@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card bg-dark text-white border-0 shadow-lg">
+                <div class="card-header border-secondary d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0 text-info">
+                        <i class="fas fa-history me-2"></i> Security Audit Logs
+                    </h4>
+                    <span class="badge bg-secondary">System Tracking Active</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover align-middle">
+                            <thead class="text-info border-secondary">
+                                <tr>
+                                    <th scope="col" style="width: 60%;">Action Performed</th>
+                                    <th scope="col" style="width: 40%;">Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for log in logs %}
+                                <tr>
+                                    <td class="text-white">
+                                        <i class="fas fa-shield-alt text-success me-2"></i>
+                                        {{ log.action }}
+                                    </td>
+                                    <td style="color: #ffffff !important; font-weight: 500;">
+                                        {{ log.timestamp|date:"M d, Y - H:i:s" }}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="2" class="text-center py-4 text-muted">
+                                        <i class="fas fa-info-circle me-2"></i> No security logs recorded yet.
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer border-0 text-center">
+                    <a href="{% url 'home' %}" class="btn btn-outline-info btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table-hover tbody tr:hover { background-color: #1a2233 !important; }
+    .card { border-radius: 15px; background-color: #111827 !important; }
+    /* Intha line kandaipa timestamp-ah white-ah mathum */
+    .table td { color: white !important; }
+</style>
+{% endblock %}
